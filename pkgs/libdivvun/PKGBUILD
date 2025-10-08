@@ -1,0 +1,31 @@
+# Maintainer: Tino Didriksen <mail@tinodidriksen.com>
+pkgname=libdivvun
+pkgver=0.3.12+g647~1fb8be2a
+pkgrel=1
+pkgdesc='Spell checker library and tool based on HFST'
+url='https://apertium.org/'
+license=('Apache')
+#makedepends=('pugixml')
+depends=('zip' 'libarchive' 'icu' 'gawk' 'hfst-ospell' 'cg3' 'hfst' 'libxml2' 'swig' 'python-setuptools' 'utf8cpp' 'pugixml')
+arch=('i686' 'x86_64' 'aarch64' 'armv7h')
+source=("https://apertium.projectjj.com/apt/nightly/source/$pkgname/${pkgname}_$pkgver.orig.tar.bz2")
+sha256sums=('SKIP')
+provides=('divvun-gramcheck')
+options=('lto')
+
+build() {
+	cd "$srcdir/$pkgname-$pkgver"
+	autoreconf -fvi
+	./configure --enable-checker --enable-cgspell --enable-python-bindings --prefix=/usr
+	make
+}
+
+check() {
+	cd "$srcdir/$pkgname-$pkgver"
+	make check
+}
+
+package() {
+	cd "$srcdir/$pkgname-$pkgver"
+	make DESTDIR="$pkgdir/" install
+}

@@ -1,0 +1,30 @@
+# Maintainer: Tino Didriksen <mail@tinodidriksen.com>
+pkgname=hfst
+pkgver=3.16.2+g3936~cd7baffe
+pkgrel=1
+pkgdesc='Helsinki Finite-State Transducer Technology'
+url='https://hfst.github.io/'
+license=('GPL3')
+makedepends=('bison' 'python-setuptools' 'swig')
+depends=('openfst' 'foma' 'icu' 'readline' 'python' 'zlib')
+arch=('i686' 'x86_64' 'aarch64' 'armv7h')
+source=("https://apertium.projectjj.com/apt/nightly/source/$pkgname/${pkgname}_$pkgver.orig.tar.bz2")
+sha256sums=('SKIP')
+options=('lto')
+
+build() {
+	cd "$srcdir/$pkgname-$pkgver"
+	autoreconf -fvi
+	./configure --disable-static --enable-all-tools --with-readline --enable-python-bindings --prefix=/usr LDFLAGS="$LDFLAGS -latomic" CPPFLAGS="$CPPFLAGS -Wp,-U_GLIBCXX_ASSERTIONS" CFLAGS="$CFLAGS -Wp,-U_GLIBCXX_ASSERTIONS" CXXFLAGS="$CXXFLAGS -Wp,-U_GLIBCXX_ASSERTIONS"
+	make
+}
+
+check() {
+	cd "$srcdir/$pkgname-$pkgver"
+	make -j1 check
+}
+
+package() {
+	cd "$srcdir/$pkgname-$pkgver"
+	make DESTDIR="$pkgdir/" install
+}

@@ -1,0 +1,30 @@
+# Maintainer: Tino Didriksen <mail@tinodidriksen.com>
+pkgname=hfst-ospell
+pkgver=0.5.4+g383~85edd77e
+pkgrel=1
+pkgdesc='Spell checker library and tool based on HFST'
+url='https://apertium.org/'
+license=('Apache')
+#makedepends=('python')
+depends=('zip' 'libarchive' 'icu')
+arch=('i686' 'x86_64' 'aarch64' 'armv7h')
+source=("https://apertium.projectjj.com/apt/nightly/source/$pkgname/${pkgname}_$pkgver.orig.tar.bz2")
+sha256sums=('SKIP')
+options=('lto')
+
+build() {
+	cd "$srcdir/$pkgname-$pkgver"
+	autoreconf -fvi
+	./configure --disable-static --enable-zhfst --without-libxmlpp --without-tinyxml2 --prefix=/usr
+	make
+}
+
+check() {
+	cd "$srcdir/$pkgname-$pkgver"
+	make -j1 check
+}
+
+package() {
+	cd "$srcdir/$pkgname-$pkgver"
+	make DESTDIR="$pkgdir/" install
+}

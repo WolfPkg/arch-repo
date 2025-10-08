@@ -1,0 +1,29 @@
+# Maintainer: Tino Didriksen <mail@tinodidriksen.com>
+pkgname=lttoolbox
+pkgver=3.8.2+g650~ae189f7d
+pkgrel=1
+pkgdesc='Apertium lexical processing modules and tools'
+url='https://wiki.apertium.org/wiki/Lttoolbox'
+license=('GPL2')
+makedepends=('cmake' 'utf8cpp' 'python')
+depends=('libxml2' 'icu')
+arch=('i686' 'x86_64' 'aarch64' 'armv7h')
+source=("https://apertium.projectjj.com/apt/nightly/source/$pkgname/${pkgname}_$pkgver.orig.tar.bz2")
+sha256sums=('SKIP')
+options=('lto')
+
+build() {
+	cd "$srcdir/$pkgname-$pkgver"
+	cmake -DENABLE_PYTHON_BINDINGS=ON -DCMAKE_INSTALL_PREFIX=/usr .
+	make
+}
+
+check() {
+	cd "$srcdir/$pkgname-$pkgver"
+	make test
+}
+
+package() {
+	cd "$srcdir/$pkgname-$pkgver"
+	make DESTDIR="$pkgdir/" install
+}

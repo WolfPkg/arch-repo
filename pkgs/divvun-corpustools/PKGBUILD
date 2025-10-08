@@ -1,0 +1,18 @@
+# Maintainer: Tino Didriksen <mail@tinodidriksen.com>
+pkgname=python-corpustools
+_name=divvun-corpustools
+pkgver=2.1.2+g2685~acbeeecc
+pkgrel=1
+pkgdesc='Divvun tools to manipulate a corpus in different ways'
+url='https://github.com/divvun/CorpusTools'
+license=('Apache')
+makedepends=('python-poetry')
+arch=('i686' 'x86_64' 'aarch64' 'armv7h')
+source=("https://apertium.projectjj.com/apt/nightly/source/$_name/${_name}_$pkgver.orig.tar.bz2")
+sha256sums=('SKIP')
+provides=($_name)
+
+package() {
+	cd "$srcdir/$_name-$pkgver"
+	python3 -m pip install --prefix=/usr "--root=$pkgdir/" -I --no-deps .
+}

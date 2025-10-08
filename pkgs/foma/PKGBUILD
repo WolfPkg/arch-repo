@@ -1,0 +1,24 @@
+# Maintainer: Tino Didriksen <mail@tinodidriksen.com>
+pkgname=foma
+pkgver=0.10.0+g285~91f91866
+pkgrel=1
+pkgdesc='Tools for constructing various finite-state automata'
+url='https://fomafst.github.io/'
+license=('Apache')
+makedepends=('cmake' 'bison')
+depends=('readline' 'zlib')
+arch=('i686' 'x86_64' 'aarch64' 'armv7h')
+source=("https://apertium.projectjj.com/apt/nightly/source/$pkgname/${pkgname}_$pkgver.orig.tar.bz2")
+sha256sums=('SKIP')
+options=('lto')
+
+build() {
+	cd "$srcdir/$pkgname-$pkgver"
+	cmake -DCMAKE_INSTALL_PREFIX=/usr .
+	make
+}
+
+package () {
+	cd "$srcdir/$pkgname-$pkgver"
+	make DESTDIR="$pkgdir/" install
+}

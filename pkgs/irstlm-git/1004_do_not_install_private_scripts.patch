@@ -1,0 +1,14 @@
+Description: prevent installation and distribution of private scripts
+Author: Giulio Paci <giuliopaci@gmail.com>
+Forwarded: yes
+--- a/scripts/Makefile.am
++++ b/scripts/Makefile.am
+@@ -3,7 +3,7 @@
+ dist_wrapperbin_SCRIPTS = \
+ add-start-end.sh build-lm-qsub.sh build-lm.sh rm-start-end.sh split-ngt.sh mdtsel.sh \
+ build-sublm.pl goograms2ngrams.pl lm-stat.pl merge-sublm.pl ngram-split.pl sort-lm.pl split-dict.pl \
+-plsa.sh qplsa.sh
++plsa.sh
+ 
+ EXTRA_DIST = wrapper
+ 

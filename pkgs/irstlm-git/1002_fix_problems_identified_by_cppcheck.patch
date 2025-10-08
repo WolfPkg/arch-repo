@@ -1,0 +1,34 @@
+Description: fix some problems reported by cppcheck
+Author: Giulio Paci <giuliopaci@gmail.com>
+Forwarded: yes
+--- a/src/mdiadapt.cpp
++++ b/src/mdiadapt.cpp
+@@ -1519,7 +1519,7 @@
+ 			system("date");
+ 			lmt->expand_level(i,numberofentries,filename,mmap);
+ 			
+-			double fstar,lambda,bo,dummy,dummy2,pr,ibow;
++			double fstar = 0.0,lambda,bo,dummy,dummy2,pr,ibow;
+ 			
+ 			ngram ng(dict,1);
+ 			ngram ng2(dict);
+@@ -1971,7 +1971,7 @@
+ 			
+ 			out << "\n\\" << i << "-grams:\n";
+ 			
+-			double fstar,lambda,bo,dummy,dummy2,pr,outLambda;
++			double fstar = 0.0,lambda,bo,dummy,dummy2,pr,outLambda;
+ 			
+ 			ngram ng(dict,1);
+ 			ngram ng2(dict);
+--- a/src/lmtable.cpp
++++ b/src/lmtable.cpp
+@@ -106,7 +106,7 @@
+ 		isInverted=false;
+ 		
+ 		//statistics
+-		for (int i=0; i<=LMTMAXLEV+1; i++) totget[i]=totbsearch[i]=0;
++		for (int i=0; i<LMTMAXLEV+1; i++) totget[i]=totbsearch[i]=0;
+ 		
+ 		logOOVpenalty=0.0; //penalty for OOV words (default 0)
+ 		

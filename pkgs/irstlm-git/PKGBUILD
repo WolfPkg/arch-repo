@@ -1,0 +1,35 @@
+# Maintainer: Tino Didriksen <mail@tinodidriksen.com>
+pkgname=irstlm-git
+pkgver=r106.ddb3c4d
+pkgrel=1
+pkgdesc='IRSTLM Toolkit'
+arch=('i686' 'x86_64')
+url='https://github.com/irstlm-team/irstlm'
+license=('LGPL')
+depends=('perl' 'zlib')
+makedepends=('git')
+conflicts=('irstlm')
+provides=('irstlm')
+source=('git+https://salsa.debian.org/science-team/irstlm.git')
+sha256sums=('SKIP')
+
+prepare() {
+    cd irstlm
+	patch -p1 < "$startdir/1001_fix_build_issues.patch"
+	patch -p1 < "$startdir/1002_fix_problems_identified_by_cppcheck.patch"
+	patch -p1 < "$startdir/1003_fix_online_help.patch"
+	patch -p1 < "$startdir/1004_do_not_install_private_scripts.patch"
+	patch -p1 < "$startdir/1005_fix_gcc15.patch"
+}
+
+build() {
+    cd irstlm
+    autoreconf -fvi
+    ./configure --enable-shared --prefix=/usr
+    make
+}
+
+package() {
+    cd irstlm
+    make DESTDIR="$pkgdir" install
+}

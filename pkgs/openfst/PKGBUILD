@@ -1,0 +1,39 @@
+# Maintainer: Tino Didriksen <mail@tinodidriksen.com>
+pkgname=openfst
+pkgver=1.8.4
+pkgrel=1
+pkgdesc='Weighted finite-state transducers library'
+url='https://www.openfst.org'
+license=('Apache')
+depends=('zlib')
+arch=('i686' 'x86_64' 'aarch64' 'armv7h')
+# NB: release, not nightly
+source=("https://apertium.projectjj.com/apt/release/source/$pkgname/${pkgname}_$pkgver.orig.tar.bz2")
+sha256sums=('SKIP')
+options=('lto')
+
+prepare() {
+	cd "$srcdir/$pkgname-$pkgver"
+	patch -p1 < "$startdir/openfst-atomic.diff"
+	patch -p1 < "$startdir/openfst-sse.diff"
+}
+
+build() {
+	cd "$srcdir/$pkgname-$pkgver"
+	autoreconf -fvi
+	./configure --enable-bin --enable-compact-fsts --enable-compress --enable-const-fsts --enable-far --enable-fsts --enable-grm --enable-linear-fsts --enable-lookahead-fsts --enable-mpdt --enable-ngram-fsts --enable-pdt --enable-special --disable-static --prefix=/usr CPPFLAGS="$CPPFLAGS -Wp,-U_GLIBCXX_ASSERTIONS" CFLAGS="$CFLAGS -Wp,-U_GLIBCXX_ASSERTIONS" CXXFLAGS="$CXXFLAGS -Wp,-U_GLIBCXX_ASSERTIONS"
+	make
+}
+
+check() {
+	cd "$srcdir/$pkgname-$pkgver"
+	make check
+}
+
+package() {
+	cd "$srcdir/$pkgname-$pkgver"
+	make DESTDIR="$pkgdir/" install
+
+	install -d $pkgdir/etc/ld.so.conf.d/
+	echo /usr/lib/fst > $pkgdir/etc/ld.so.conf.d/openfst.conf
+}

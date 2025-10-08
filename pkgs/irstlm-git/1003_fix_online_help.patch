@@ -1,0 +1,82 @@
+Description: fix -h option handling
+ This patch fix -h options handling: it ensures that -h option is
+ always supported, without any argument and reformat output so that
+ a minimum set of information is always present, with similar format,
+ in every tool.
+Author: Giulio Paci <giuliopaci@gmail.com>
+Forwarded: yes
+--- a/scripts/sort-lm.pl
++++ b/scripts/sort-lm.pl
+@@ -25,27 +25,39 @@
+ 
+ use strict;
+ use Getopt::Long "GetOptions";
++use File::Basename;
+ 
+ my ($help,$ilm,$olm,$inv,$tmpdir)=();
+-$help=0;
+ 
+ $ilm="/dev/stdin";
+ $olm="/dev/stdout";
+ my $tmpdir="$ENV{TMP}";
+ 
++$help=1 unless
+ &GetOptions('ilm=s' => \$ilm,
+ 			'olm=s' => \$olm,
+ 			'tmpdir=s' => \$tmpdir,
+             'inv' => \$inv,
+-            'help' => \$help,);
++            'h|help' => \$help,);
+ 
+ if ($help || !$ilm || !$olm){
+-  print "sort-lm.pl [--ilm <fname>]  [--olm <fname>] [--inv]\n",
+-  "-ilm  <fname>   input ARPA LM filename (default /dev/stdin)\n",
+-  "-olm <fname>    output ARPA LM filename (default /dev/stdout)\n",
+-  "-tmpdir         temporary directory for sorting (default is the enivronment variable TMP\n",
+-  "-inv            inverted n-gram sort for compile-lm\n",
+-  "-help           print these instructions\n";    
++	my $cmnd = basename($0);
++  print "\n$cmnd - sorts n-grams of ARPA file according to lexicographic order\n",
++	"\nUSAGE:\n",
++	"       $cmnd [options]\n",
++	"\nDESCRIPTION:\n",
++	"       Sorts n-grams of an ARPA file according to lexicographic order.\n",
++	"       Inverted sorting option is propedeutic to building a binary\n",
++	"       mtable with compile-lm with n-grams stored in reverted order.\n",
++	"\nOPTIONS:\n",
++	"       -h, --help      (optional) print these instructions\n",
++	"       -ilm  <fname>   input ARPA LM filename (default /dev/stdin)\n",
++	"       -olm <fname>    output ARPA LM filename (default /dev/stdout)\n",
++	"       -tmpdir <path>  temporary directory for sorting (default is the\n",
++	"                       enivronment variable TMP\n",
++	"       -inv            inverted n-gram sort for compile-lm\n",
++	"\n";
++
+   exit(1);
+ }
+ 
+--- a/src/cmd.c
++++ b/src/cmd.c
+@@ -695,9 +695,8 @@
+ {
+ 	char *s;
+ 	
+-	if(!*_s && cmd->Type==CMDENUMTYPE && cmd->Flag==1){
+-		s=(char*) malloc(5);
+-		strcpy(s,"TRUE");
++	if(!*_s && cmd->Type==CMDBOOLTYPE){
++		s="TRUE";
+ 	}else{
+ 		s=_s;
+ 	}
+@@ -779,10 +778,6 @@
+ 	}
+ 	cmd->ArgStr = strdup(s);
+ 	
+-	if(!*_s && cmd->Type==CMDENUMTYPE && cmd->Flag==1){
+-		free (s);
+-	}
+-	
+ 	return 0;
+ }
+ 

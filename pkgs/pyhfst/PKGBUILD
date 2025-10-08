@@ -1,0 +1,23 @@
+# Maintainer: Tino Didriksen <mail@tinodidriksen.com>
+pkgname=python-pyhfst
+_name=pyhfst
+pkgver=1.3.0+g36~86a0788a
+pkgrel=1
+pkgdesc='Divvun tools to manipulate a corpus in different ways'
+url='https://github.com/Rootroo-ltd/pyhfst'
+license=('Apache')
+makedepends=('cython' 'python-setuptools')
+arch=('i686' 'x86_64' 'aarch64' 'armv7h')
+source=("https://apertium.projectjj.com/apt/nightly/source/$_name/${_name}_$pkgver.orig.tar.bz2")
+sha256sums=('SKIP')
+provides=($_name)
+
+build() {
+	cd "$srcdir/$_name-$pkgver"
+    python3 setup.py build
+}
+
+package() {
+	cd "$srcdir/$_name-$pkgver"
+    python3 setup.py install --prefix=/usr --install-scripts=/usr/bin "--root=$pkgdir/"
+}

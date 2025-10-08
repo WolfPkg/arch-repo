@@ -1,0 +1,29 @@
+# Maintainer: Tino Didriksen <mail@tinodidriksen.com>
+pkgname=transfuse
+pkgver=0.7.7+g104~4a071b1a
+pkgrel=1
+pkgdesc='Runs formatted documents through transformations/translation'
+url='https://github.com/TinoDidriksen/Transfuse'
+license=('GPL3')
+makedepends=('cmake' 'xxhash')
+depends=('icu' 'libxml2' 'sqlite3' 'libzip')
+arch=('i686' 'x86_64' 'aarch64' 'armv7h')
+source=("https://apertium.projectjj.com/apt/nightly/source/$pkgname/${pkgname}_$pkgver.orig.tar.bz2")
+sha256sums=('SKIP')
+options=('lto')
+
+build() {
+	cd "$srcdir/$pkgname-$pkgver"
+	cmake -DCMAKE_INSTALL_PREFIX=/usr .
+	make
+}
+
+check() {
+	cd "$srcdir/$pkgname-$pkgver"
+	make test
+}
+
+package () {
+	cd "$srcdir/$pkgname-$pkgver"
+	make DESTDIR="$pkgdir/" install
+}

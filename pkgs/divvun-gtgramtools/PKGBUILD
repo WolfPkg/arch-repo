@@ -1,0 +1,19 @@
+# Maintainer: Tino Didriksen <mail@tinodidriksen.com>
+pkgname=python-gtgramtools
+_name=divvun-gtgramtools
+pkgver=1.4.1+g253~27f92754
+pkgrel=1
+pkgdesc='Scripts that creates GiellaLT gramchecker file and runs tests'
+url='https://github.com/divvun/GiellaLTGramTools'
+license=('Apache')
+makedepends=('python-poetry')
+depends=('python-corpustools')
+arch=('i686' 'x86_64' 'aarch64' 'armv7h')
+source=("https://apertium.projectjj.com/apt/nightly/source/$_name/${_name}_$pkgver.orig.tar.bz2")
+sha256sums=('SKIP')
+provides=($_name)
+
+package() {
+	cd "$srcdir/$_name-$pkgver"
+	python3 -m pip install --prefix=/usr "--root=$pkgdir/" -I --no-deps .
+}

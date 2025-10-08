@@ -1,0 +1,104 @@
+Description: improves autoconf building
+ Autoconf package files have several issues:
+ - macro order in configure.ac is not right;
+ - version in configure.ac is not up to date;
+ - Makefile.am perform useless (and wrong/failing) operations;
+ - src/Makefile.am includes some AM_CXXFLAGS that are usually users domain;
+ - headers are not installed in their own irstlm directory;
+ - library version info is missing.
+ This patch solves these issues.
+Author: Giulio Paci <giuliopaci@gmail.com>
+Forwarded: yes
+--- a/configure.ac
++++ b/configure.ac
+@@ -1,13 +1,13 @@
+-AC_INIT([irstlm], [5.80.06])
++AC_INIT([irstlm], [6.00.05])
+ AM_INIT_AUTOMAKE([-Wall -Werror foreign])
+ AC_PROG_CC
+ AC_PROG_CXX
+-AC_PROG_LIBTOOL
+ AC_CONFIG_HEADERS([config.h])
+ AC_CONFIG_MACRO_DIR([m4])
+ 
+ m4_pattern_allow([AM_PROG_AR],[AM_PROG_AR])
+ AM_PROG_AR
++AC_PROG_LIBTOOL
+ 
+ AC_ARG_ENABLE([doc],
+    [AC_HELP_STRING([--enable-doc|--disable-doc], [Enable or Disable (default) creation of documentation])])
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -8,11 +8,3 @@
+ 
+ ACLOCAL_AMFLAGS = -I m4
+ 
+-LN_S=@LN_S@
+-
+-install-exec-hook:
+-	cd ${exec_prefix}/ && \
+-	  ${LN_S} -n -f lib lib64
+-
+-dist-hook:
+-	rm -rf `find $(distdir)/doc -type d -name .svn`
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -1,8 +1,8 @@
+ lib_LTLIBRARIES = libirstlm.la
+ 
+-AM_CXXFLAGS = -static -isystem/usr/include -W -Wall -ffor-scope -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES $(BOOST_CPPFLAGS) -DMYCODESIZE=3
++AM_CXXFLAGS = -Wall -ffor-scope -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES $(BOOST_CPPFLAGS) -DMYCODESIZE=3
+ 
+-libirstlm_ladir = ${includedir}
++libirstlm_ladir = $(includedir)/irstlm
+ 
+ libirstlm_la_HEADERS = \
+   cmd.h \
+@@ -64,33 +64,31 @@
+ 
+ CLEANFILES = $(BUILT_SOURCES)
+ 
+-libirstlm_la_LIBADD = $(BOOST_LDFLAGS) $(BOOST_THREAD_LIB)
+-
+-LDADD = -lirstlm -lpthread
+-DEPENDENCIES = libirstlm.la
++libirstlm_la_LIBADD = $(BOOST_LDFLAGS) $(BOOST_THREAD_LIB) -lpthread
++libirstlm_la_LDFLAGS = -version-info 1:0:0
+ 
+ bin_PROGRAMS = dict ngt dtsel compile-lm interpolate-lm prune-lm quantize-lm prune-lm score-lm tlm plsa verify-caching cswa
+ dict_SOURCES = dict.cpp
+-dict_DEPENDENCIES = $(DEPENDENCIES)
++dict_LDADD = libirstlm.la -lpthread
+ ngt_SOURCES = ngt.cpp
+-ngt_DEPENDENCIES = $(DEPENDENCIES)
++ngt_LDADD = libirstlm.la -lpthread
+ dtsel_SOURCES = dtsel.cpp
+-dtsel_DEPENDENCIES = $(DEPENDENCIES)
++dtsel_LDADD = libirstlm.la -lpthread
+ compile_lm_SOURCES = compile-lm.cpp
+-compile_lm_DEPENDENCIES = $(DEPENDENCIES)
++compile_lm_LDADD = libirstlm.la -lpthread
+ interpolate_lm_SOURCES = interpolate-lm.cpp
+-interpolate_lm_DEPENDENCIES = $(DEPENDENCIES)
++interpolate_lm_LDADD = libirstlm.la -lpthread
+ prune_lm_SOURCES = prune-lm.cpp
+-prune_lm_DEPENDENCIES = $(DEPENDENCIES)
++prune_lm_LDADD = libirstlm.la -lpthread
+ quantize_lm_SOURCES = quantize-lm.cpp
+-quantize_lm_DEPENDENCIES = $(DEPENDENCIES)
++quantize_lm_LDADD = libirstlm.la -lpthread
+ score_lm_SOURCES = score-lm.cpp
+-score_lm_DEPENDENCIES = $(DEPENDENCIES)
++score_lm_LDADD = libirstlm.la -lpthread
+ tlm_SOURCES = tlm.cpp
+-tlm_DEPENDENCIES = $(DEPENDENCIES)
++tlm_LDADD = libirstlm.la -lpthread
+ plsa_SOURCES = plsa.cpp
+-plsa_DEPENDENCIES = $(DEPENDENCIES)
++plsa_LDADD = libirstlm.la -lpthread
+ verify_caching_SOURCES = verify-caching.cpp
+-verify_caching_DEPENDENCIES = $(DEPENDENCIES)
++verify_caching_LDADD = libirstlm.la -lpthread
+ cswa_SOURCES = cswa.cpp
+-cswa_DEPENDENCIES = $(DEPENDENCIES)
++cswa_LDADD = libirstlm.la -lpthread
