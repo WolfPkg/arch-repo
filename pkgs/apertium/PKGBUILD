@@ -1,6 +1,6 @@
 # Maintainer: Tino Didriksen <mail@tinodidriksen.com>
 pkgname=apertium
-pkgver=3.9.12+g938~e124fb3d
+pkgver=3.9.12+g943~c0a91d81
 pkgrel=1
 pkgdesc='Shallow-transfer machine translation engine'
 url='https://apertium.org/'

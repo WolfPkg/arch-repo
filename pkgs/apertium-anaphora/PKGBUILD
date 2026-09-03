@@ -1,6 +1,6 @@
 # Maintainer: Tino Didriksen <mail@tinodidriksen.com>
 pkgname=apertium-anaphora
-pkgver=1.1.1+g121~0e32f8f3
+pkgver=1.1.1+g123~55b1778e
 pkgrel=1
 pkgdesc='Anaphora resolution module for Apertium'
 url='https://apertium.org/'

@@ -1,6 +1,6 @@
 # Maintainer: Tino Didriksen <mail@tinodidriksen.com>
 pkgname=transfuse
-pkgver=0.7.7+g104~4a071b1a
+pkgver=0.8.0+g109~8eb16174
 pkgrel=1
 pkgdesc='Runs formatted documents through transformations/translation'
 url='https://github.com/TinoDidriksen/Transfuse'

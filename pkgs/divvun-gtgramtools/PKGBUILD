@@ -1,7 +1,7 @@
 # Maintainer: Tino Didriksen <mail@tinodidriksen.com>
 pkgname=python-gtgramtools
 _name=divvun-gtgramtools
-pkgver=1.4.1+g253~27f92754
+pkgver=1.16.0+g383~bc227684
 pkgrel=1
 pkgdesc='Scripts that creates GiellaLT gramchecker file and runs tests'
 url='https://github.com/divvun/GiellaLTGramTools'

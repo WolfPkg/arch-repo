@@ -1,6 +1,6 @@
 # Maintainer: Tino Didriksen <mail@tinodidriksen.com>
 pkgname=apertium-lex-tools
-pkgver=0.5.0+g549~e993adc7
+pkgver=0.5.0+g551~1ccefa62
 pkgrel=1
 pkgdesc='Constraint-based lexical selection module'
 url='https://apertium.org/'

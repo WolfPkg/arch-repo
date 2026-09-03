@@ -1,7 +1,7 @@
 # Maintainer: Tino Didriksen <mail@tinodidriksen.com>
 pkgname=python-corpustools
 _name=divvun-corpustools
-pkgver=2.1.2+g2685~acbeeecc
+pkgver=2.6.1+g2766~509919a0
 pkgrel=1
 pkgdesc='Divvun tools to manipulate a corpus in different ways'
 url='https://github.com/divvun/CorpusTools'

@@ -1,6 +1,6 @@
 # Maintainer: Tino Didriksen <mail@tinodidriksen.com>
 pkgname=apertium-recursive
-pkgver=1.2.2+g321~d9d857da
+pkgver=1.2.2+g324~f48e2f33
 pkgrel=1
 pkgdesc='Apertium recursive structural transfer module'
 url='https://apertium.org/'

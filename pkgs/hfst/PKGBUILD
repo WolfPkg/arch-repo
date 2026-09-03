@@ -1,6 +1,6 @@
 # Maintainer: Tino Didriksen <mail@tinodidriksen.com>
 pkgname=hfst
-pkgver=3.16.2+g3936~cd7baffe
+pkgver=3.17.3+g4033~2c91fa27
 pkgrel=1
 pkgdesc='Helsinki Finite-State Transducer Technology'
 url='https://hfst.github.io/'

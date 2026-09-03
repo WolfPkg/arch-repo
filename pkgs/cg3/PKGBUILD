@@ -1,6 +1,6 @@
 # Maintainer: Tino Didriksen <mail@tinodidriksen.com>
 pkgname=cg3
-pkgver=1.6.2+g2336~cb9af530
+pkgver=1.6.9+g2350~a027fe68
 pkgrel=1
 pkgdesc='Tools for using the 3rd edition of Constraint Grammar (CG-3)'
 url='https://edu.visl.dk/cg3.html'

@@ -1,6 +1,6 @@
 # Maintainer: Tino Didriksen <mail@tinodidriksen.com>
 pkgname=lexd
-pkgver=1.3.5+g177~342ace45
+pkgver=1.3.5+g180~55b0b7b6
 pkgrel=1
 pkgdesc='Lexicon compiler for non-suffixational morphologies'
 url='https://github.com/apertium/lexd'

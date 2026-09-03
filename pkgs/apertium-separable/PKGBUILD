@@ -1,6 +1,6 @@
 # Maintainer: Tino Didriksen <mail@tinodidriksen.com>
 pkgname=apertium-separable
-pkgver=0.7.1+g277~81e8b005
+pkgver=0.7.1+g279~18045e4d
 pkgrel=1
 pkgdesc='Reordering separable/discontiguous multiwords'
 url='https://apertium.org/'

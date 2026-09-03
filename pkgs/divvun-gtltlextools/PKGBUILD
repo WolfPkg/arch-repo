@@ -1,7 +1,7 @@
 # Maintainer: Tino Didriksen <mail@tinodidriksen.com>
 pkgname=python-gtltlextools
 _name=divvun-gtltlextools
-pkgver=0.3.0+g19~7829bac0
+pkgver=0.10.0+g83~d73db33a
 pkgrel=1
 pkgdesc='Divvun tools to manipulate a corpus in different ways'
 url='https://github.com/divvun/GiellaLTLexTools'

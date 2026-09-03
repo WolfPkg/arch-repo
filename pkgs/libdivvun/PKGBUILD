@@ -1,6 +1,6 @@
 # Maintainer: Tino Didriksen <mail@tinodidriksen.com>
 pkgname=libdivvun
-pkgver=0.3.12+g647~1fb8be2a
+pkgver=0.3.12+g656~89ce5997
 pkgrel=1
 pkgdesc='Spell checker library and tool based on HFST'
 url='https://apertium.org/'

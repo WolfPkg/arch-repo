@@ -1,6 +1,6 @@
 # Maintainer: Tino Didriksen <mail@tinodidriksen.com>
 pkgname=foma
-pkgver=0.10.0+g285~91f91866
+pkgver=0.10.0+g313~9c1eb480
 pkgrel=1
 pkgdesc='Tools for constructing various finite-state automata'
 url='https://fomafst.github.io/'

@@ -1,6 +1,6 @@
 # Maintainer: Tino Didriksen <mail@tinodidriksen.com>
 pkgname=lttoolbox
-pkgver=3.8.2+g650~ae189f7d
+pkgver=3.8.4+g659~562fd7d5
 pkgrel=1
 pkgdesc='Apertium lexical processing modules and tools'
 url='https://wiki.apertium.org/wiki/Lttoolbox'

@@ -1,6 +1,6 @@
 # Maintainer: Tino Didriksen <mail@tinodidriksen.com>
 pkgname=openfst
-pkgver=1.8.4
+pkgver=1.8.5
 pkgrel=1
 pkgdesc='Weighted finite-state transducers library'
 url='https://www.openfst.org'
